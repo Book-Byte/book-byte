@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@smastrom/react-rating": "^1.3.2",
     "keep-react": "^1.0.1",
     "mongodb": "^6.2.0",
     "next": "14.0.2",
     "react": "^18",
     "react-dom": "^18",
-    "react-icons": "^4.11.0"
+    "react-icons": "^4.11.0",
+    "react-rating-star-with-type": "^1.2.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.16",
