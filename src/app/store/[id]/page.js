@@ -14,7 +14,7 @@ const BookDetails = async ({ params: { id } }) => {
     const { _id, title, author, genre, firstPublish, rating, description, status, condition, sellingPrice, image } = book;
     
     return (
-        <div className="mt-24 mb-10 md:mb-0 w-full flex flex-col md:flex-row justify-center items-center md:justify-between md:items-start">
+        <div className="mt-10 md:mt-28 mb-10 md:mb-0 w-full flex flex-col md:flex-row justify-center items-center md:justify-between md:items-start">
             <div className="md:w-1/3 w-full md:px-10 px-5 flex flex-col justify-center">
                 <Image className="w-64 m-auto" src={image} alt={title} width={100} height={50} />
                 <div className="flex flex-col mt-5">
@@ -34,7 +34,7 @@ const BookDetails = async ({ params: { id } }) => {
                 <p className="mt-5 md:w-2/3 w-full">{description}</p>
                 <p className="mt-5 text-gray-700">Genres: <span className="text-black font-semibold">{genre}</span></p>
                 <p className="mt-2 text-gray-700">First Published in {firstPublish}</p>
-                <p className="mt-2 text-gray-700">For {status.join(', ')}</p>
+                <p className="mt-2 text-gray-700">Available for {status.join('/')}</p>
                 <p className="mt-2 text-gray-700">Condition: <span className="text-black">{condition}</span></p>
                 <p className="mt-2 text-gray-700">Selling Price: <span className="text-black font-semibold">${sellingPrice}</span></p>
             </div>

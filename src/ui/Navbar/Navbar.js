@@ -1,15 +1,57 @@
 "use client";
-import {Navbar as Nav } from "keep-react";
+import { Navbar as Nav } from "keep-react";
 import Logo from "@/components/Logo/logo";
 import { BiSearch } from 'react-icons/bi'
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PurpleButton from "@/components/Buttons/PurpleButton";
+import SearchCard from "../SearchCard/SearchCard";
+import { revalidatePath } from "next/cache";
+// import { preload } from "@/utils/clientApi";
+// import { searchBooks } from "@/utils/books.service";
 
-const Navbar = () => {
+const Navbar = ({ preload }) => {
     const [openSearch, setOpenSearch] = useState(false)
+    const [openSearchData, setOpenSearchData] = useState(false)
+    const [searchData, setSearchData] = useState([])
+    const [errorMessage, setErrorMessage] = useState(<></>)
+
+    // const handleSearch = async (text) => {
+    //     try {
+    //         const searchData = await preload(text);
+    //         if (searchData.length > 0) {
+    //             setOpenSearchData(true)
+    //         } else {
+    //             setOpenSearchData(false)
+    //         } 
+    //         if(text.length > 0) {
+    //             setSearchData(searchData)
+    //         } else {
+    //             setSearchData([])
+    //         }
+    //         if(searchData.length === 0 && text.length > 0){
+    //             setError(<p className="text-black font-semibold text-lg">No match found</p>)
+    //         }
+    //     } catch (error) {
+    //         console.error("Error while searching:", error);
+    //     }
+    // };
+
+    const handleSearch = async (text) => {
+        try {
+            const searchData = await preload(text);
+            setOpenSearchData(searchData.length > 0);
+            setSearchData(text.length > 0 ? searchData : []);
+            setErrorMessage(searchData.length === 0 && text.length > 0 ? <p className="text-black font-semibold text-lg">Not found</p> : <></>);
+        } catch (error) {
+            console.error("Error while searching:", error);
+        }
+    };
+
+    console.log(errorMessage.props.children);
+
     return (
-        <nav className="relative w-full"> <Nav className="flex fixed top-0 w-full bg-purple-50 py-3 ">
+        <nav id="navbar" className="relative md:fixed md:top-0 w-full"> <Nav className="flex w-full bg-purple-50 py-3 ">
             <Nav.Container className="flex items-center relative justify-between w-full">
                 <Nav.Container className="flex items-center md:py-4">
                     <Nav.Brand>
@@ -37,7 +79,7 @@ const Navbar = () => {
 
                 <Nav.Container className="flex gap-4 items-center">
                     <div className='hidden md:flex relative border-2 border-gray-800 rounded-lg'>
-                        <input className='p-2 w-full bg-transparent rounded-lg text-black placeholder:text-gray-700 focus:outline-none' type="text" name="search" placeholder='Search'/>
+                        <input onChange={(e) => handleSearch(e.target.value)} className='p-2 w-full bg-transparent rounded-lg text-black placeholder:text-gray-700 focus:outline-none' type="text" name="search" placeholder='Search' />
                         <BiSearch className='h-6 w-6 absolute right-0 m-2 text-gray-800 cursor-pointer' />
                     </div>
                     <BiSearch className="w-6 h-6 md:hidden flex cursor-pointer" onClick={() => setOpenSearch(!openSearch)} />
@@ -49,7 +91,32 @@ const Navbar = () => {
             {
                 openSearch && (
                     <div className="w-full flex md:hidden absolute top-13 px-4 py-2 bg-purple-50">
-                        <input type="text" placeholder="Search" className="p-2 w-full border-b-2 border-purple-600 bg-transparent focus:outline-none" />
+                        <input onChange={(e) => handleSearch(e.target.value)} type="text" placeholder="Search" className="p-2 w-full border-b-2 border-purple-600 bg-transparent focus:outline-none" />
+                    </div>
+                )
+            }
+            {
+                openSearch && searchData && (
+                    <div className={`w-full top-[115px] md:hidden grid grid-cols-1 gap-3 ${searchData.length > 3 ? 'overflow-y-auto h-80' : ''} absolute px-4 py-2 bg-purple-50`}>
+                        {
+                            errorMessage.props.children || searchData.map(data => <Link onClick={() => {
+                                handleSearch('')
+                                setOpenSearch(false)
+                            }} className="cursor-pointer" href={`/store/${data._id}`}> <SearchCard image={data.image} title={data.title} author={data.author} /></Link>)
+                        }
+                    </div>
+                )
+            }
+            {
+                openSearchData && (
+                    <div className={`w-full hidden md:grid grid-cols-5 gap-3 ${searchData.length > 12 ? 'overflow-y-auto h-80' : ''} absolute top-13 px-4 py-2 bg-purple-50`}>
+                        {
+                            errorMessage.props.children || searchData.map(data => <Link onClick={() =>{
+                                handleSearch('')
+                                setOpenSearchData(false)
+                                revalidatePath(`/store/${data._id}`, 'page')
+                            }} className="cursor-pointer" href={`/store/${data._id}`}> <SearchCard image={data.image} title={data.title} author={data.author} /></Link>)
+                        }
                     </div>
                 )
             }
