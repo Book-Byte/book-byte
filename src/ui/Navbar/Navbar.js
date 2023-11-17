@@ -41,7 +41,7 @@ const Navbar = () => {
                         <BiSearch className='h-6 w-6 absolute right-0 m-2 text-gray-800 cursor-pointer' />
                     </div>
                     <BiSearch className="w-6 h-6 md:hidden flex cursor-pointer" onClick={() => setOpenSearch(!openSearch)} />
-                    <Link href='/store/sign-in'><PurpleButton children="Sign In"/></Link>
+                    <Link href='/store/sign-in'><PurpleButton>Sign In</PurpleButton></Link>
                     <Nav.Toggle />
                 </Nav.Container>
             </Nav.Container>

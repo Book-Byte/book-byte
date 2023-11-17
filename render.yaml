@@ -1,5 +1,0 @@
-services:
-  - name: nextjs
-    type: web
-    buildCommand: yarn build
-    startCommand: yarn start
