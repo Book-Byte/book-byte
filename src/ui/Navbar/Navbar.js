@@ -99,7 +99,7 @@ const Navbar = ({ preload }) => {
                 openSearch && searchData && (
                     <div className={`w-full top-[115px] md:hidden grid grid-cols-1 gap-3 ${searchData.length > 3 ? 'overflow-y-auto h-80' : ''} absolute px-4 py-2 bg-purple-50`}>
                         {
-                            errorMessage.props.children || searchData.map(data => <Link onClick={() => {
+                            errorMessage.props.children || searchData.map(data => <Link key={data._id} onClick={() => {
                                 handleSearch('')
                                 setOpenSearch(false)
                             }} className="cursor-pointer" href={`/store/${data._id}`}> <SearchCard image={data.image} title={data.title} author={data.author} /></Link>)
@@ -111,7 +111,7 @@ const Navbar = ({ preload }) => {
                 openSearchData && (
                     <div className={`w-full hidden md:grid grid-cols-5 gap-3 ${searchData.length > 12 ? 'overflow-y-auto h-80' : ''} absolute top-13 px-4 py-2 bg-purple-50`}>
                         {
-                            errorMessage.props.children || searchData.map(data => <Link onClick={() =>{
+                            errorMessage.props.children || searchData.map(data => <Link key={data._id} onClick={() =>{
                                 handleSearch('')
                                 setOpenSearchData(false)
                                 revalidatePath(`/store/${data._id}`, 'page')
