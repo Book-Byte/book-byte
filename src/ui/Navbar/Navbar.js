@@ -7,8 +7,6 @@ import { useEffect, useState } from "react";
 import PurpleButton from "@/components/Buttons/PurpleButton";
 import SearchCard from "../SearchCard/SearchCard";
 import { revalidatePath } from "next/cache";
-// import { preload } from "@/utils/clientApi";
-// import { searchBooks } from "@/utils/books.service";
 
 const Navbar = ({ preload }) => {
     const [openSearch, setOpenSearch] = useState(false)
@@ -16,26 +14,6 @@ const Navbar = ({ preload }) => {
     const [searchData, setSearchData] = useState([])
     const [errorMessage, setErrorMessage] = useState(<></>)
 
-    // const handleSearch = async (text) => {
-    //     try {
-    //         const searchData = await preload(text);
-    //         if (searchData.length > 0) {
-    //             setOpenSearchData(true)
-    //         } else {
-    //             setOpenSearchData(false)
-    //         } 
-    //         if(text.length > 0) {
-    //             setSearchData(searchData)
-    //         } else {
-    //             setSearchData([])
-    //         }
-    //         if(searchData.length === 0 && text.length > 0){
-    //             setError(<p className="text-black font-semibold text-lg">No match found</p>)
-    //         }
-    //     } catch (error) {
-    //         console.error("Error while searching:", error);
-    //     }
-    // };
 
     const handleSearch = async (text) => {
         try {
@@ -55,7 +33,7 @@ const Navbar = ({ preload }) => {
             <Nav.Container className="flex items-center relative justify-between w-full">
                 <Nav.Container className="flex items-center md:py-4">
                     <Nav.Brand>
-                        <p className="text-purple-500"><Logo /></p>
+                        <Link href='/store'><p className="text-purple-500"><Logo /></p></Link>
                     </Nav.Brand>
                     <Nav.Divider></Nav.Divider>
                     <Nav.Container
