@@ -19,7 +19,7 @@ const DbConnect = async () =>{
         });
         db = client.db("BookSwap");
         await client.db("admin").command({ ping: 1 });
-        console.log("You successfully connected to MongoDB!");
+        console.log("You are connected to MongoDB!");
         return db;
     } catch (err) {
       // Ensures that the client will close when you finish/error

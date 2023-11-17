@@ -1,10 +1,8 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
 import { Rating as ReactRating } from '@smastrom/react-rating'
 
-const Rating = () => {
-  const [rating, setRating] = useState(0)
+const StaticRating = ({width, customClass, value}) => {
   const star = (
     <path stroke='2' d="M62 25.154H39.082L32 3l-7.082 22.154H2l18.541 13.693L13.459 61L32 47.309L50.541 61l-7.082-22.152L62 25.154z" />
   )
@@ -18,7 +16,6 @@ const Rating = () => {
   }
   
 
-  return <ReactRating style={{ maxWidth: 250 }} value={rating} onChange={setRating} itemStyles={myStyles}/>
+  return <ReactRating className={`flex flex-row mt-2 ${customClass}`} style={{ maxWidth: width }} value={value} readOnly itemStyles={myStyles}/>
 }
-
-export default Rating;
+export default StaticRating;
