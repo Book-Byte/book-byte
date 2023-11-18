@@ -11,7 +11,7 @@ const BookCard = ({ title, image, author, sellingPrice, _id }) => {
                 <p className="font-semibold text-xl">{title}</p>
                 <p className="font-semibold">Author: <span className="font-normal">{author}</span></p>
                 <p className="font-semibold">Price: <span className="font-normal">${sellingPrice}</span></p>
-                <Link className="absolute bottom-2 w-full" href={`/store/${_id}`}><PurpleButton className="w-full">See Details</PurpleButton></Link>
+                <Link className="absolute bottom-2 w-[290px]" href={`/store/${_id}`}><PurpleButton className="w-full">See Details</PurpleButton></Link>
             </div>
         </div>
     );
