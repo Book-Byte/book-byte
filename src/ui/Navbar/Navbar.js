@@ -1,12 +1,12 @@
-"use client";
+"use client"
 import { Navbar as Nav } from "keep-react";
 import Logo from "@/components/Logo/logo";
 import { BiSearch } from 'react-icons/bi'
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PurpleButton from "@/components/Buttons/PurpleButton";
 import SearchCard from "../SearchCard/SearchCard";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 const Navbar = ({ preload }) => {
     const [openSearch, setOpenSearch] = useState(false)
@@ -20,13 +20,13 @@ const Navbar = ({ preload }) => {
             const searchData = await preload(text);
             setOpenSearchData(searchData.length > 0);
             setSearchData(text.length > 0 ? searchData : []);
-            setErrorMessage(searchData.length === 0 && text.length > 0 ? <p className="text-black font-semibold text-lg">Not found</p> : <></>);    
+            setErrorMessage(searchData.length === 0 && text.length > 0 ? <p className="text-black font-semibold text-lg">Not found</p> : <></>);
         } catch (error) {
             console.error("Error while searching:", error);
         }
     };
 
-    console.log(errorMessage.props.children);
+    // console.log(errorMessage.props.children);
 
     return (
         <nav id="navbar" className="relative w-full"> <Nav className="flex w-full bg-purple-50 py-3 ">
@@ -92,7 +92,7 @@ const Navbar = ({ preload }) => {
                             errorMessage.props.children || searchData.map(data => <Link key={data._id} onClick={() =>{
                                 handleSearch('')
                                 setOpenSearchData(false)
-                                revalidatePath()
+                                revalidatePath(`/store/${data._id}`, 'page')
                             }} className="cursor-pointer" href={`/store/${data._id}`}> <SearchCard image={data.image} title={data.title} author={data.author} /></Link>)
                         }
                     </div>

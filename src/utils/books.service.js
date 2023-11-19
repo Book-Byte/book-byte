@@ -1,6 +1,7 @@
 import "server-only"
 import DbConnect from "./DbConnect"
 import { ObjectId } from "mongodb"
+import { cache } from "react"
 
 export const getAllBooks = async () => {
     try {
@@ -29,7 +30,7 @@ export const searchBooks = async (char) => {
     try {
         const db = await DbConnect()
         const allBooksCollection = db.collection('allBooks')
-        const query = {$or : [{title : {$regex : char, $options: "i"}}]}
+        const query = { $or: [{ title: { $regex: char, $options: "i" } }] }
         const result = await allBooksCollection.find(query).toArray()
         console.log(result)
         return result
@@ -38,3 +39,4 @@ export const searchBooks = async (char) => {
         throw error;;
     }
 }
+
