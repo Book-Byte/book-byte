@@ -1,9 +1,9 @@
 "use client"
 import React from 'react';
 
-const TransparentButton = ({children, customClass}) => {
+const TransparentButton = ({children, type, customClass}) => {
     return (
-        <button className={`${customClass} mb-3 py-2 font-semibold border-[3px]`}>{children}</button>
+        <button type={type} className={`${customClass} mb-3 py-2 font-semibold border-[3px]`}>{children}</button>
     );
 };
 

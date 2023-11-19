@@ -14,7 +14,7 @@ const BookDetails = async ({ params: { id } }) => {
     const { _id, title, author, genre, firstPublish, rating, description, status, condition, sellingPrice, image } = book;
     
     return (
-        <div className="mt-10 md:mt-28 mb-10 md:mb-0 w-full flex flex-col md:flex-row justify-center items-center md:justify-between md:items-start">
+        <div className="mt-5 md:mt-10 mb-10 md:mb-0 w-full flex flex-col md:flex-row justify-center items-center md:justify-between md:items-start">
             <div className="md:w-1/3 w-full md:px-10 px-5 flex flex-col justify-center">
                 <Image className="w-64 m-auto" src={image} alt={title} width={100} height={50} />
                 <div className="flex flex-col mt-5">

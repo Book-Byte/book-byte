@@ -5,7 +5,7 @@ import Image from "next/image";
 const BookCard = ({ title, image, author, sellingPrice, _id }) => {
 
     return (
-        <div className="rounded-t-2xl rounded-b-xl bg-white shadow-2xl md:w-80 w-[300px]">
+        <div className="rounded-t-2xl rounded-b-xl bg-white shadow-2xl md:w-80 w-[300px] hover:scale-105">
             <Image className="md:w-80 md:h-96 w-[300px] h-80 rounded-t-2xl" src={image} alt={title} width={200} height={50} />
             <div className="relative z-10 flex flex-col space-y-1 mt-1 p-2 h-[190px]">
                 <p className="font-semibold text-xl">{title}</p>

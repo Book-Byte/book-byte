@@ -31,6 +31,7 @@ export const searchBooks = async (char) => {
         const allBooksCollection = db.collection('allBooks')
         const query = {$or : [{title : {$regex : char, $options: "i"}}]}
         const result = await allBooksCollection.find(query).toArray()
+        console.log(result)
         return result
     } catch (error) {
         console.error("Error fetching searched book:", error);

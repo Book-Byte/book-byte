@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import PurpleButton from "@/components/Buttons/PurpleButton";
 import SearchCard from "../SearchCard/SearchCard";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 const Navbar = ({ preload }) => {
     const [openSearch, setOpenSearch] = useState(false)
@@ -20,7 +20,7 @@ const Navbar = ({ preload }) => {
             const searchData = await preload(text);
             setOpenSearchData(searchData.length > 0);
             setSearchData(text.length > 0 ? searchData : []);
-            setErrorMessage(searchData.length === 0 && text.length > 0 ? <p className="text-black font-semibold text-lg">Not found</p> : <></>);
+            setErrorMessage(searchData.length === 0 && text.length > 0 ? <p className="text-black font-semibold text-lg">Not found</p> : <></>);    
         } catch (error) {
             console.error("Error while searching:", error);
         }
@@ -29,7 +29,7 @@ const Navbar = ({ preload }) => {
     console.log(errorMessage.props.children);
 
     return (
-        <nav id="navbar" className="relative md:fixed md:top-0 w-full"> <Nav className="flex w-full bg-purple-50 py-3 ">
+        <nav id="navbar" className="relative w-full"> <Nav className="flex w-full bg-purple-50 py-3 ">
             <Nav.Container className="flex items-center relative justify-between w-full">
                 <Nav.Container className="flex items-center md:py-4">
                     <Nav.Brand>
@@ -61,7 +61,7 @@ const Navbar = ({ preload }) => {
                         <BiSearch className='h-6 w-6 absolute right-0 m-2 text-gray-800 cursor-pointer' />
                     </div>
                     <BiSearch className="w-6 h-6 md:hidden flex cursor-pointer" onClick={() => setOpenSearch(!openSearch)} />
-                    <Link href='/store/sign-in'><PurpleButton>Sign In</PurpleButton></Link>
+                    <Link href='/authentication/sign-in'><PurpleButton>Sign In</PurpleButton></Link>
                     <Nav.Toggle />
                 </Nav.Container>
             </Nav.Container>
@@ -92,7 +92,7 @@ const Navbar = ({ preload }) => {
                             errorMessage.props.children || searchData.map(data => <Link key={data._id} onClick={() =>{
                                 handleSearch('')
                                 setOpenSearchData(false)
-                                revalidatePath(`/store/${data._id}`, 'page')
+                                revalidatePath()
                             }} className="cursor-pointer" href={`/store/${data._id}`}> <SearchCard image={data.image} title={data.title} author={data.author} /></Link>)
                         }
                     </div>
