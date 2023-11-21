@@ -18,3 +18,16 @@ export const postUser = async (data) => {
         throw error;;
     }
 }
+
+export const getUser = async (email) => {
+    try {
+        const db = await DbConnect()
+        const allUsersCollection = db.collection('users')
+        const query = {email: email}
+        const result = await allUsersCollection.findOne(query)
+        return result
+    } catch (error) {
+        console.error("Error inserting user data:", error);
+        throw error;;
+    }
+}

@@ -1,7 +1,8 @@
 "use client"
-import { createUserByEmailAndPassword, createUserWithEmailAndPasswordAsync, resetStatus } from '@/Redux/features/auth/authSlice';
+import { createUserByEmailPassword } from '@/Firebase/FirebaseAuth';
+import { checkCurrentUserAsync, createAccount, createUserWithEmailAndPasswordAsync, customError, resetStatus } from '@/Redux/features/auth/authSlice';
 import TransparentButton from '@/components/Buttons/TransparentButton';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { FaFacebook, FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc'
@@ -10,7 +11,10 @@ import { useDispatch, useSelector } from 'react-redux';
 const SignUpForm = ({ postUserData }) => {
     const dispatch = useDispatch()
     // const [error, setError] = useState('')
-    const { user, loading, error, success } = useSelector((state) => state.auth)
+    const { userData, loading, error, success } = useSelector((state) => state.auth)
+    if(userData !== null){
+        console.log(userData);
+    }
 
     const handleSubmit = async event => {
         event.preventDefault();
@@ -20,9 +24,35 @@ const SignUpForm = ({ postUserData }) => {
         const password = form.password.value;
         const confirmPassword = form.confirmPassword.value;
 
-        const userData = {username: name, email: email}
-        dispatch(createUserWithEmailAndPasswordAsync({ email, password }));
-        await postUserData(userData)
+        if(password.length < 6){
+            dispatch(customError('password must be at least 6 characters'))
+            return
+        } else if(password !== confirmPassword){
+            dispatch(customError("password didn't matched"))
+            return
+        }
+
+        const userDataForDatabase = {username: name, email: email}
+        
+        if(userData === null){
+            await createUserByEmailPassword(email, password)
+            .then(result => {
+                const user = result.user
+                dispatch(createAccount({ type: "auth/createAccount", payload:{loading: false, success: 'Account created successfully', error: '', userData : {email : user.email, name: name}}}))
+                console.log('Account created successfully');
+            })
+            .catch(err => {
+                console.log(err.message)
+                if(err.message == 'Firebase: Error (auth/email-already-in-use).'){
+                    dispatch(customError('This account already exists. Please login'))
+                }
+            })
+            await postUserData(userDataForDatabase)
+        } else {
+            dispatch(customError('You are already logged in'))
+            return;
+        }
+
     }
 
     useEffect(() => {
@@ -33,7 +63,8 @@ const SignUpForm = ({ postUserData }) => {
             toast.error(error)
         }
         return () => {
-            dispatch(resetStatus());
+           dispatch(checkCurrentUserAsync())
+           dispatch(resetStatus())
         };
     }, [dispatch, success, error]);
 
@@ -54,9 +85,9 @@ const SignUpForm = ({ postUserData }) => {
                 <input type='password' name='confirmPassword' placeholder='confirm password' className='bg-purple-50 py-3 px-5 rounded-3xl focus:outline-none placeholder:text-gray-900 text-black' required />
             </div>
             {
-                error.length > 0 && <p className='text-rose-900 text-sm'>{error}</p>
+                // error.length > 0 && <p className='text-rose-900 text-sm'>{error}</p>
             }
-            <TransparentButton type='submit' customClass={`rounded-3xl px-6 py-3 text-white border-none bg-purple-500 w-3/4 hover:text-black ${loading ? 'btn-disabled' : ''}`}>SIGN UP</TransparentButton>
+            <TransparentButton type='submit' customClass={`rounded-3xl px-6 py-3 text-white border-none bg-purple-500 w-3/4 hover:text-black ${loading ? 'btn-disabled' : ''}`}>{loading ? 'Loading' : 'SIGN UP'}</TransparentButton>
         </form>
     );
 };

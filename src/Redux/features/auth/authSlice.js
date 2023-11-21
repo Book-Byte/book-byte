@@ -1,56 +1,74 @@
 import { app } from "@/Firebase/Firebase";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 
 const auth = getAuth(app);
 
 const initialState = {
-    user: null,
-    loading: false,
+    userData: null,
+    loading: true,
     error: '',
     success: ''
 };
 
-export const createUserWithEmailAndPasswordAsync = createAsyncThunk(
-    'auth/createUserWithEmailAndPassword',
-    async ({ email, password }, { rejectWithValue }) => {
-        try {
-            const result = await createUserWithEmailAndPassword(auth, email, password);
-            const user = result.user;
-            return user;
-        } catch (error) {
-            return rejectWithValue(error.message);
-        }
+export const checkCurrentUserAsync = createAsyncThunk(
+    'auth/checkCurrentUser',
+    async (_, { dispatch }) => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // const userData = {name: user.displayName, email: user.email}
+                dispatch(holdCurrentUser(user));
+            } else {
+                dispatch(resetStatus())
+                dispatch(removeUser());
+            }
+        });
+
+        return unsubscribe();
     }
 );
+
+
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        resetStatus: (state) => {
-            state.loading = false;
-            state.error = '';
-            state.success = '';
+        createAccount: (state, action) => {
+            if (action.type === 'auth/createAccount') {
+                state.loading = action.payload.loading;
+                state.userData = action.payload.userData;
+                state.error = action.payload.error;
+                state.success = action.payload.success;
+            }
+        },
+        login : (state, action) => {
+            if (action.type === 'auth/login') {
+                state.loading = action.payload.loading;
+                state.userData = action.payload.userId;
+                state.error = action.payload.error;
+                state.success = action.payload.success;
+            }
         }
+        ,
+        holdCurrentUser : (state, action) =>{
+            state.userData = action.payload
+        },
+        resetStatus : (state) => {
+            state.loading = false;
+            state.success = '';
+            state.error = '';
+        },
+        removeUser : (state)=>{
+            state.userData = null
+        },
+        customError: (state, action) => {       
+                state.error = action.payload;
+                state.loading = false
+        },
     },
-    extraReducers: (builder) => {
-        builder
-            .addCase(createUserWithEmailAndPasswordAsync.pending, (state) => {
-                state.loading = true;
-            })
-            .addCase(createUserWithEmailAndPasswordAsync.fulfilled, (state, action) => {
-                state.loading = false;
-                state.user = action.payload;
-                state.success = 'Signup successful';
-            })
-            .addCase(createUserWithEmailAndPasswordAsync.rejected, (state, action) => {
-                state.loading = false;
-                state.error = 'Signup failed';
-            });
-    }
 });
 
-export const { resetStatus,  } = authSlice.actions;
+export const { createAccount, customError, resetStatus, removeUser, holdCurrentUser, login } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -1,5 +1,5 @@
 "use client"
-import { Navbar as Nav } from "keep-react";
+import { Dropdown, Navbar as Nav } from "keep-react";
 import Logo from "@/components/Logo/logo";
 import { BiSearch } from 'react-icons/bi'
 import Link from "next/link";
@@ -7,12 +7,24 @@ import { useState } from "react";
 import PurpleButton from "@/components/Buttons/PurpleButton";
 import SearchCard from "../SearchCard/SearchCard";
 import { revalidatePath } from "next/cache";
+import { useDispatch, useSelector } from "react-redux";
+import { FaUser } from "react-icons/fa";
+import { checkCurrentUserAsync, removeUser, resetStatus, signOutUserAsync } from "@/Redux/features/auth/authSlice";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+import { getAuth, signOut } from "firebase/auth";
+import { app } from "@/Firebase/Firebase";
+import { signOutUser } from "@/Firebase/FirebaseAuth";
 
-const Navbar = ({ preload }) => {
+const Navbar = ({ preload, getUserByEmail }) => {
     const [openSearch, setOpenSearch] = useState(false)
     const [openSearchData, setOpenSearchData] = useState(false)
     const [searchData, setSearchData] = useState([])
     const [errorMessage, setErrorMessage] = useState(<></>)
+    const [userName, setUserName] = useState('')
+    const { userData, loading, success, error } = useSelector((state) => state.auth)
+    const dispatch = useDispatch()
+    // console.log(user.email);
 
 
     const handleSearch = async (text) => {
@@ -26,7 +38,36 @@ const Navbar = ({ preload }) => {
         }
     };
 
-    // console.log(errorMessage.props.children);
+    useEffect(() => {
+        // if (success.length > 0) {
+        //     toast.success(success)
+        // }
+        // if (error.length > 0) {
+        //     toast.error(error)
+        // }
+
+        return () => {
+            dispatch(checkCurrentUserAsync())
+            dispatch(resetStatus())
+        }
+    }, [dispatch,])
+
+    const handleSignOut = async () => {
+        await signOutUser()
+            .then(result => {
+                console.log(result);
+                dispatch(removeUser())
+                toast.success('sign out successfully')
+            })
+            .catch(err => {
+                console.log(err.message);
+                toast.error('sign out failed')
+            })
+    }
+
+
+
+    console.log(userName);
 
     return (
         <nav id="navbar" className="relative w-full"> <Nav className="flex w-full bg-purple-50 py-3 ">
@@ -61,7 +102,19 @@ const Navbar = ({ preload }) => {
                         <BiSearch className='h-6 w-6 absolute right-0 m-2 text-gray-800 cursor-pointer' />
                     </div>
                     <BiSearch className="w-6 h-6 md:hidden flex cursor-pointer" onClick={() => setOpenSearch(!openSearch)} />
-                    <Link href='/authentication/sign-in'><PurpleButton>Sign In</PurpleButton></Link>
+                    {
+                        userData === null ? <Link href='/authentication/sign-in'><PurpleButton>Sign In</PurpleButton></Link> : <Dropdown
+                            label="Dropdown button"
+                            size="sm"
+                            type="primary"
+                            dismissOnClick={true}
+                        >
+                            <Dropdown.Item>{userName}</Dropdown.Item>
+                            <Dropdown.Item>Settings</Dropdown.Item>
+                            <Dropdown.Item>Earnings</Dropdown.Item>
+                            <Dropdown.Item><PurpleButton onClick={handleSignOut}>SIGN OUT</PurpleButton></Dropdown.Item>
+                        </Dropdown>
+                    }
                     <Nav.Toggle />
                 </Nav.Container>
             </Nav.Container>
@@ -89,7 +142,7 @@ const Navbar = ({ preload }) => {
                 openSearchData && (
                     <div className={`w-full hidden md:grid grid-cols-5 gap-3 ${searchData.length > 12 ? 'overflow-y-auto h-80' : ''} absolute top-13 px-4 py-2 bg-purple-50`}>
                         {
-                            errorMessage.props.children || searchData.map(data => <Link key={data._id} onClick={() =>{
+                            errorMessage.props.children || searchData.map(data => <Link key={data._id} onClick={() => {
                                 handleSearch('')
                                 setOpenSearchData(false)
                                 revalidatePath(`/store/${data._id}`, 'page')
