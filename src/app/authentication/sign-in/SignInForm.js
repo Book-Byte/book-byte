@@ -24,7 +24,7 @@ const SignInForm = () => {
             await signInByEmailPassword(email, password)
             .then(result => {
                 const user = result.user;
-                dispatch(login({ type: "auth/login", payload:{loading: false, success: 'Log in successfully', error: '', userData : {email : user.email, name: displayName}}}))
+                dispatch(login({ type: "auth/login", payload:{loading: false, success: 'Log in successfully', error: '', userData : {email : user.email, name: user.displayName}}}))
                 toast.success('Log in successfully')    
                 console.log('Log in successfully');
             })
