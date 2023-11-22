@@ -30,6 +30,7 @@ const SignInForm = () => {
             })
             .catch(err => {
                 dispatch(customError(err.message))
+toast.error(err.message)
                 console.log(err.message);
             })
             
