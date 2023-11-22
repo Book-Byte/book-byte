@@ -14,10 +14,10 @@ const initialState = {
 export const checkCurrentUserAsync = createAsyncThunk(
     'auth/checkCurrentUser',
     async (_, { dispatch }) => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
                 // const userData = {name: user.displayName, email: user.email}
-                dispatch(holdCurrentUser(user));
+                dispatch(holdCurrentUser(currentUser));
             } else {
                 dispatch(resetStatus())
                 dispatch(removeUser());
