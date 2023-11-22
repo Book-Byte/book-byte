@@ -45,7 +45,7 @@ const authSlice = createSlice({
         login : (state, action) => {
             if (action.type === 'auth/login') {
                 state.loading = action.payload.loading;
-                state.userData = action.payload.userId;
+                state.userData = action.payload.userData;
                 state.error = action.payload.error;
                 state.success = action.payload.success;
             }
