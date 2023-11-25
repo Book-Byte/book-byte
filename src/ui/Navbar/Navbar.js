@@ -94,7 +94,7 @@ const Navbar = ({ preload, getUserByEmail }) => {
                     <BiSearch className="w-6 h-6 md:hidden flex cursor-pointer" onClick={() => setOpenSearch(!openSearch)} />
                     {
                         userData === null ? <Link href='/authentication/sign-in'><PurpleButton>Sign In</PurpleButton></Link> : <Dropdown
-                            label={userData?.name}
+                            label={userData?.name.split(' ')[0]}
                             className={customClassForDropDown}
                             size=""
                             trigger="hover"
