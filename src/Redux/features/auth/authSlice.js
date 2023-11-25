@@ -1,6 +1,6 @@
 import { app } from "@/Firebase/Firebase";
-import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { createSlice, } from "@reduxjs/toolkit";
+import {  getAuth, onAuthStateChanged, } from 'firebase/auth'
 
 const auth = getAuth(app);
 
@@ -10,6 +10,7 @@ const initialState = {
     error: '',
     success: ''
 };
+
 
 // Thunk to start listening to authentication state changes
 export const listenToAuthChanges = () => (dispatch) => {
@@ -65,24 +66,7 @@ const authSlice = createSlice({
                 state.error = '';
                 state.success= 'Login successfully'
             }
-        }
-        ,
-        // holdCurrentUser : (state, action) =>{
-        //     if (action.type === 'HOLD_CURRENT_USER') {
-        //         state.userData = action.payload;
-        //     }
-        //     // switch (action.type) {
-        //     //     case 'HOLD_CURRENT_USER':
-        //     //         return {
-        //     //             ...state,
-        //     //             userData: action.payload // Update userData in the state
-        //     //         };
-        //     //     // Other cases for different actions if needed
-        
-        //     //     default:
-        //     //         return state;
-        //     // }
-        // },
+        },
         holdCurrentUser : (state, action) =>{
             state.userData = action.payload
         },
