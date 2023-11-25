@@ -1,0 +1,2 @@
+export const customClassForDropDown = 'font-semibold text-black hover:text-purple-500 hover:bg-purple-50 bg-purple-50 shadow-2xl p-0 m-0 focus:border-none border-none'
+export const customClassForDropDownItem = 'hover:text-purple-600 font-semibold py-1'

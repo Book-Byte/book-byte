@@ -6,51 +6,83 @@ const auth = getAuth(app);
 
 const initialState = {
     userData: null,
-    loading: true,
+    loading: false,
     error: '',
     success: ''
 };
 
-export const checkCurrentUserAsync = createAsyncThunk(
-    'auth/checkCurrentUser',
-    async (_, { dispatch }) => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // const userData = {name: user.displayName, email: user.email}
-                dispatch(holdCurrentUser(user));
+// Thunk to start listening to authentication state changes
+export const listenToAuthChanges = () => (dispatch) => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        try {
+            if (currentUser) {
+                const userData = { name: currentUser.displayName, email: currentUser.email };
+                dispatch(holdCurrentUser(userData));
             } else {
-                dispatch(resetStatus())
-                dispatch(removeUser());
+                dispatch(resetStatus());
+                dispatch(removeUser())
             }
-        });
+        } catch (error) {
+            // Handle error if needed
+            console.error('Error handling auth changes:', error);
+        }
+    });
 
-        return unsubscribe();
-    }
-);
-
-
+    return () => {
+        unsubscribe();
+    };
+};
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
+        startAuthAction : (state) =>{
+            state.loading = true
+        },
         createAccount: (state, action) => {
             if (action.type === 'auth/createAccount') {
-                state.loading = action.payload.loading;
-                state.userData = action.payload.userData;
-                state.error = action.payload.error;
-                state.success = action.payload.success;
+                console.log(action.payload);
+                state.loading = false;
+                state.userData = action.payload;
+                state.error = ''
+                state.success = 'Login successfully'
             }
         },
         login : (state, action) => {
             if (action.type === 'auth/login') {
-                state.loading = action.payload.loading;
-                state.userData = action.payload.userId;
-                state.error = action.payload.error;
-                state.success = action.payload.success;
+                console.log(action.payload);
+                state.loading = false;
+                state.userData = action.payload;
+                state.error = ''
+                state.success = 'Login successfully'
+            }
+        },
+        googleLogin: (state, action) => {
+            if (action.type === 'auth/googleLogin') {
+                state.loading = false;
+                state. userData = action.payload;
+                state.error = '';
+                state.success= 'Login successfully'
             }
         }
         ,
+        // holdCurrentUser : (state, action) =>{
+        //     if (action.type === 'HOLD_CURRENT_USER') {
+        //         state.userData = action.payload;
+        //     }
+        //     // switch (action.type) {
+        //     //     case 'HOLD_CURRENT_USER':
+        //     //         return {
+        //     //             ...state,
+        //     //             userData: action.payload // Update userData in the state
+        //     //         };
+        //     //     // Other cases for different actions if needed
+        
+        //     //     default:
+        //     //         return state;
+        //     // }
+        // },
         holdCurrentUser : (state, action) =>{
             state.userData = action.payload
         },
@@ -69,6 +101,6 @@ const authSlice = createSlice({
     },
 });
 
-export const { createAccount, customError, resetStatus, removeUser, holdCurrentUser, login } = authSlice.actions;
+export const { createAccount, customError, resetStatus, removeUser, holdCurrentUser, login, googleLogin, startAuthAction } = authSlice.actions;
 
 export default authSlice.reducer;

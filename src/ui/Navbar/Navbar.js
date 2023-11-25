@@ -8,24 +8,22 @@ import PurpleButton from "@/components/Buttons/PurpleButton";
 import SearchCard from "../SearchCard/SearchCard";
 import { revalidatePath } from "next/cache";
 import { useDispatch, useSelector } from "react-redux";
-import { FaUser } from "react-icons/fa";
-import { checkCurrentUserAsync, removeUser, resetStatus, signOutUserAsync } from "@/Redux/features/auth/authSlice";
+import { listenToAuthChanges} from "@/Redux/features/auth/authSlice";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import { getAuth, signOut } from "firebase/auth";
-import { app } from "@/Firebase/Firebase";
 import { signOutUser } from "@/Firebase/FirebaseAuth";
+import { customClassForDropDown, customClassForDropDownItem } from "@/Constants/Constants";
+
+
+
 
 const Navbar = ({ preload, getUserByEmail }) => {
     const [openSearch, setOpenSearch] = useState(false)
     const [openSearchData, setOpenSearchData] = useState(false)
     const [searchData, setSearchData] = useState([])
     const [errorMessage, setErrorMessage] = useState(<></>)
-    const [userName, setUserName] = useState('')
-    const { userData, loading, success, error } = useSelector((state) => state.auth)
+    const { userData} = useSelector((state) => state.auth)
     const dispatch = useDispatch()
-    // console.log(user.email);
-
 
     const handleSearch = async (text) => {
         try {
@@ -37,26 +35,22 @@ const Navbar = ({ preload, getUserByEmail }) => {
             console.error("Error while searching:", error);
         }
     };
-
     useEffect(() => {
-        // if (success.length > 0) {
-        //     toast.success(success)
-        // }
-        // if (error.length > 0) {
-        //     toast.error(error)
-        // }
+        const handleAuthChanges = () => {
+            const unsubscribe = dispatch(listenToAuthChanges());
 
-        return () => {
-            dispatch(checkCurrentUserAsync())
-            dispatch(resetStatus())
-        }
-    }, [dispatch,])
+            return () => {
+                unsubscribe();
+            };
+        };
+        handleAuthChanges();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch]);
+
 
     const handleSignOut = async () => {
         await signOutUser()
-            .then(result => {
-                console.log(result);
-                dispatch(removeUser())
+            .then(() => {
                 toast.success('sign out successfully')
             })
             .catch(err => {
@@ -64,10 +58,6 @@ const Navbar = ({ preload, getUserByEmail }) => {
                 toast.error('sign out failed')
             })
     }
-
-
-
-    console.log(userName);
 
     return (
         <nav id="navbar" className="relative w-full"> <Nav className="flex w-full bg-purple-50 py-3 ">
@@ -104,15 +94,15 @@ const Navbar = ({ preload, getUserByEmail }) => {
                     <BiSearch className="w-6 h-6 md:hidden flex cursor-pointer" onClick={() => setOpenSearch(!openSearch)} />
                     {
                         userData === null ? <Link href='/authentication/sign-in'><PurpleButton>Sign In</PurpleButton></Link> : <Dropdown
-                            label="Dropdown button"
-                            size="sm"
-                            type="primary"
-                            dismissOnClick={true}
+                            label={userData?.name}
+                            className={customClassForDropDown}
+                            size=""
+                            trigger="hover"
+                            type=""
                         >
-                            <Dropdown.Item>{userName}</Dropdown.Item>
-                            <Dropdown.Item>Settings</Dropdown.Item>
-                            <Dropdown.Item>Earnings</Dropdown.Item>
-                            <Dropdown.Item><PurpleButton onClick={handleSignOut}>SIGN OUT</PurpleButton></Dropdown.Item>
+                            <Dropdown.Item className={customClassForDropDownItem}>Profile</Dropdown.Item>
+                            <Dropdown.Item className={customClassForDropDownItem}>Dashboard</Dropdown.Item>
+                            <Dropdown.Item className={customClassForDropDownItem} onClick={handleSignOut}>Sign out</Dropdown.Item>
                         </Dropdown>
                     }
                     <Nav.Toggle />
