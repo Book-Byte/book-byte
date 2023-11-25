@@ -72,18 +72,6 @@ const SignInForm = ({postUserData}) => {
             console.log(error.message);
         }
     }
-    // useEffect(() => {
-    //     // if (success.length > 0) {
-    //     //     toast.success(success)
-    //     // }
-    //     // if(error.length > 0) {
-    //     //     toast.error(error)
-    //     // }
-    //     // return () => {
-    //        dispatch(checkCurrentUserAsync())
-    //        dispatch(resetStatus())
-    //     // };
-    // }, [dispatch]);
 
     return (
         <form onSubmit={handleSubmit} className='w-full md:w-1/2 bg-gray-50 flex flex-col justify-center space-y-3 items-center py-6 px-3 rounded-t-2xl md:rounded-l-2xl md:rounded-r-none'>
