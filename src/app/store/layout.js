@@ -25,7 +25,7 @@ const BookStoreLayout = async ({ children }) => {
 
                 <Navbar preload={preload} getUserByEmail={getUserByEmail}/>
                 {children}
-                <Link href="#navbar"><GoTopButton/></Link>
+                <GoTopButton/>
         </div>
     )
 }
