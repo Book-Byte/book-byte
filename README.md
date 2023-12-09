@@ -3,6 +3,7 @@
 Official documentation of BookByte. 
 
 Check BookByte [official Repository](https://github.com/Book-Byte/book-byte) for more information.
+Visit [BookByte](https://bookbyte.vercel.app/) live site for an idea of current status of the website.
 
 ## What is BookByte
 
@@ -112,7 +113,7 @@ If you wish to contribute, you can,
 
 ## 🙏 Support
 
-We all need support and motivation. `ReactPlay` is not an exception. Please give this project a ⭐️ to encourage and show that you liked it. Don't forget to leave a star ⭐️ before you move away.
+We all need support and motivation. `BookByte` is not an exception. Please give this project a ⭐️ to encourage and show that you liked it. Don't forget to leave a star ⭐️ before you move away.
 
 If you found the app helpful, consider supporting us with a coffee.
 
