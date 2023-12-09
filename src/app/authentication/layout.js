@@ -1,4 +1,3 @@
-import CustomProvider from '@/Redux/CustomProvider';
 import GoTopButton from '@/components/Buttons/GoTopButton';
 import Footer from '@/ui/Footer/Footer';
 import Navbar from '@/ui/Navbar/Navbar';
@@ -15,12 +14,10 @@ const AuthenticationLayout = async ({ children }) => {
     return (
         <div className='flex flex-col justify-center items-center'>
             <Navbar preload={preload} />
-            {/* <CustomProvider> */}
                 {children}
                 <Link href='#navbar'><GoTopButton /></Link>
                 <Toaster/>
                 <Footer/>
-            {/* </CustomProvider> */}
         </div>
     );
 };
