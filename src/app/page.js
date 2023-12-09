@@ -6,7 +6,7 @@ import Logo from '@/components/Logo/logo'
 
 
 export const metadata = {
-  title: 'Litloop || Home'
+  title: 'BookByte || Home'
 }
 
 export default function Home() {

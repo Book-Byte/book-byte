@@ -1,5 +1,6 @@
 import CustomProvider from '@/Redux/CustomProvider';
 import GoTopButton from '@/components/Buttons/GoTopButton';
+import Footer from '@/ui/Footer/Footer';
 import Navbar from '@/ui/Navbar/Navbar';
 import { searchBooks } from '@/utils/books.service';
 import Link from 'next/link';
@@ -18,6 +19,7 @@ const AuthenticationLayout = async ({ children }) => {
                 {children}
                 <Link href='#navbar'><GoTopButton /></Link>
                 <Toaster/>
+                <Footer/>
             {/* </CustomProvider> */}
         </div>
     );

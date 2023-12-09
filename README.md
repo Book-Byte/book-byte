@@ -1,40 +1,129 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# BookByte Docs
 
-## Getting Started
+Official documentation of BookByte. 
 
-First, run the development server:
+Check BookByte [official Repository](https://github.com/Abdullah-5603/BookByte-next) for more information.
+
+## What is BookByte
+
+`book-byte` is an open-source web app where a user can Sell, Buy, Rent, Lend a book.It is made by [next.js 14](https://nextjs.org).
+
+ A normal user can hold two different type of role.One is seller and the other is buyer. On seller role he/she can sell or rent a book, on buyer mood he/she can buy or lend a book and track his/her order on track-order route. 
+ 
+ User can see his/her books and books status on his dashboard. Books will present on a table. A book can have three different status `For sell`, `For Rent`, `For Sell/For Rent`. 
+ 
+ On selling role user can set there book price, description, how many books he/she have and he/she can also able to update those information. 
+ 
+ User can send and accept friend requests like facebook. His/her friends list will show on his dashboard. From there he/she can remove or block a friend. He/she will also able to chat with other friends.  
+ 
+
+## How to contribute to this repo?
+
+You can contribute to this repo in several ways:
+
+    1. Write documentation for the various parts of BookByte
+    2. Suggest changes to the existing docs
+    3. Improve the documentation website
+
+To contribute, you must set up this repository on your local machine. Here is a brief guide on setting up the repo on your local machine:
+
+### 🍴 Fork and Clone the Repo
+
+First, you need to fork the `book-byte` repo. You can do this by clicking the `Fork` button on the top right corner of the repo. If you are new to forking, please watch this [YouTube Guide](https://www.youtube.com/watch?v=h8suY-Osn8Q) to get started.
+
+Once forked, you can clone the repo by clicking the `Clone or Download` button on the top right corner of the forked repo.
+
+Please change the directory after cloning the repository using the `cd <folder-name>` command.
+
+> **Note:** Please do not remove the `.env` file from the root folder. It contains all the environment variables required for development.
+
+### ⬇️ Install Dependencies
+
+Next, install the dependencies by running the following command in the `book-byte` repo. we recommend using `yarn` but you can install using `npm` too
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn
+#or
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+if you don't have `yarn` installed on your PC, follow the steps below to install it..
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+**Windows**
+1. open your command prompt as administrator.
+2. write `corepack enable` and hit enter.
+3. then `npm install --global yarn`
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+**Linux**
+1. open terminal and hit `npm install --global yarn`
 
-## Live Site: 
+**MacOS**
+1. open terminal and hit `npm install --global yarn`
+or
+`brew install yarn`
 
-Litoop live site on [Litloop](https://litloop-next.vercel.app)
+**Or Download Package**
+If you are unable to install yarn following the above-mentioned process, then you can simply download the package and install it. Visit the official website of Yarn; there you can just expand the "Alternative" section and it will ask for the version to download for Windows, Linux, or Mac.
+`https://classic.yarnpkg.com/en/docs/install#windows-stable`
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+> **Note**: `BookByte` runs on next 14. However, some of our dependencies are yet to upgrade to version 14. So please use the following command when you face difficulties installing the dependencies. Also, ensure to use Node.js version >= 16.x
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+npm install --legacy-peer-deps
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### 🦄 Start the Development Mode
 
-## Deploy on Vercel
+Use the following command to start the app in the development mode:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+yarn dev
+```
+or if you installed dependencies using ``npm`` use below command
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+``` bash
+npm run dev
+```
+
+It runs the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+The page will reload when you make changes. You may also see any lint errors in the console.
+
+### 🧱 Build the App for Production
+
+You don't need to build the app cause BookByte made by next.js 14 and it linked with vercel by github repository. You just need to commit and push it to the remote repository. After review and test it will merge with main branch. Then vercel will automatically build and deploy the app.
+
+## 🤝 Contributing to `BookByte`
+
+Any kind of positive contribution is welcome! Please help us to grow by contributing to the project.
+
+If you wish to contribute, you can,
+
+- Suggest a Feature
+- Test the app, and help it improve.
+- Improve the app, fix bugs, etc.
+- Improve documentation.
+- Create content about BookByte and share it with the world.
+
+> Please read [`CONTRIBUTING`](CONTRIBUTING.md) for details on our [`CODE OF CONDUCT`](CODE_OF_CONDUCT.md), and the process for submitting pull requests to us.
+
+🆕 New to Open Source? 💡 Follow this [guide](https://opensource.guide/how-to-contribute/) to jumpstart your Open Source journey 🚀.
+
+## 🙏 Support
+
+We all need support and motivation. `ReactPlay` is not an exception. Please give this project a ⭐️ to encourage and show that you liked it. Don't forget to leave a star ⭐️ before you move away.
+
+If you found the app helpful, consider supporting us with a coffee.
+
+<a href="https://www.buymeacoffee.com/greenroots">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50px">
+</a>
+
+---
+
+<h3 align="center">
+A ⭐️ to <b>BookByte</b> is to make us more 💪 stronger and motivated.
+</h3>
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!

@@ -5,7 +5,7 @@ import { BiSearch } from 'react-icons/bi'
 import Link from "next/link";
 import { useState } from "react";
 import PurpleButton from "@/components/Buttons/PurpleButton";
-import SearchCard from "../SearchCard/SearchCard";
+import SearchCard from "../Cards/SearchCard";
 import { revalidatePath } from "next/cache";
 import { useDispatch, useSelector } from "react-redux";
 import { listenToAuthChanges} from "@/Redux/features/auth/authSlice";

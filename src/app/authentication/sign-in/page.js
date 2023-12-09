@@ -5,7 +5,7 @@ import SignInForm from './SignInForm';
 import { postUser } from '@/utils/user.service';
 
 export const metadata = {
-    title : "Litloop || Sign In"
+    title : "BookByte || Sign In"
 }
 
 const SignIn = () => {

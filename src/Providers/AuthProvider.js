@@ -1,9 +1,9 @@
 "use client"
+import store from '@/Redux/store';
 import { Provider } from 'react-redux';
-import store from './store';
 
-const CustomProvider = ({children}) => {
+const AuthProvider = ({children}) => {
   return <Provider store={store}>{children}</Provider>
 }
 
-export default CustomProvider;
+export default AuthProvider;

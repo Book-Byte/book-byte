@@ -4,9 +4,10 @@ import StaticRating from "@/components/Ratings/StaticRating";
 import { getSingleBook } from "@/utils/books.service";
 import Image from "next/image";
 import Link from "next/link";
+import { useNavigation } from "next/navigation";
 
 export const metadata = {
-    title: "Litloop || Book Details"
+    title: "BookByte || Book Details"
 }
 
 const BookDetails = async ({ params: { id } }) => {
