@@ -2,7 +2,7 @@
 
 Official documentation of BookByte. 
 
-Check BookByte [official Repository](https://github.com/Abdullah-5603/BookByte-next) for more information.
+Check BookByte [official Repository](https://github.com/Book-Byte/book-byte) for more information.
 
 ## What is BookByte
 
@@ -15,7 +15,7 @@ Check BookByte [official Repository](https://github.com/Abdullah-5603/BookByte-n
  On selling role user can set there book price, description, how many books he/she have and he/she can also able to update those information. 
  
  User can send and accept friend requests like facebook. His/her friends list will show on his dashboard. From there he/she can remove or block a friend. He/she will also able to chat with other friends.  
- 
+
 
 ## How to contribute to this repo?
 
@@ -126,4 +126,3 @@ If you found the app helpful, consider supporting us with a coffee.
 A ⭐️ to <b>BookByte</b> is to make us more 💪 stronger and motivated.
 </h3>
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!

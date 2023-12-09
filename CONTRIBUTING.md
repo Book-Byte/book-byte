@@ -1,8 +1,8 @@
 # Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via [issue](https://github.com/Abdullah-5603/BookByte-next/issues), [email](mailto:bookbyte@gmail.com) or any other method with the owners of this repository before making a change.
+When contributing to this repository, please first discuss the change you wish to make via [issue](https://github.com/Book-Byte/book-byte/issues), [email](mailto:combookbyte@gmail.com) or any other method with the owners of this repository before making a change.
 
-Please note we have a [Code of Conduct](https://github.com/Abdullah-5603/BookByte-next/blob/main/CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
+Please note we have a [Code of Conduct](https://github.com/Book-Byte/book-byte/blob/main/CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
 
 
  - [Pull Request Process](#prp)
@@ -11,10 +11,10 @@ Please note we have a [Code of Conduct](https://github.com/Abdullah-5603/BookByt
 
 ## <a name="prp"></a> Pull Request Process
 
-1. Ensure any install or build dependencies are removed before the end of the layer when doing abuild.
-2. Update the README.md with details of changes to the interface, this includes new environmentvariables, exposed ports, useful file  locations and container parameters.
+1. Ensure any install or build dependencies are removed before the end of the layer when doing a build.
+2. Update the README.md with details of changes to the interface, this includes new environment variables, exposed ports, useful file  locations and container parameters.
 3. Increase the version numbers in any examples files and the README.md to the new version that thisPull Request would represent.
-4. You may merge the Pull Request in once you have the sign-off of two other developers, or if youdo not have permission to do that,  you may request the second reviewer to merge it for you.
+4. You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that,  you may request the second reviewer to merge it for you.
 
 ## <a name="coc"></a> Code of Conduct
 
@@ -53,7 +53,7 @@ This Code of Conduct applies both within project spaces and in public spaces whe
 
 ### Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at [bookbyte@gmail.com](mailto:bookbyte@gmail.com). All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at [bookbyte@gmail.com](mailto:combookbyte@gmail.com). All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.
 
 Project maintainers who do not follow or enforce the Code of Conduct in good faith may face temporary or permanent repercussions as determined by other members of the project's leadership.
 
