@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import SignUpForm from './SignUpForm';
 import { postUser } from '@/utils/user.service';
+import axios from 'axios';
 
 export const metadata = {
     title: "BookByte || Sign Up"
@@ -12,7 +13,12 @@ const SignUp = () => {
 
     const postUserData = async (data) => {
         "use server"
-        return await postUser(data)
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/users`, data)
+            return response.data;
+           } catch (error) {
+            console.log(error.message);
+           }
     }
 
     return (
