@@ -30,7 +30,7 @@ To contribute, you must set up this repository on your local machine. Here is a 
 
 ### 🍴 Fork and Clone the Repo
 
-First, you need to fork the `book-byte` repo. You can do this by clicking the `Fork` button on the top right corner of the repo. If you are new to forking, please watch this [YouTube Guide](https://www.youtube.com/watch?v=h8suY-Osn8Q) to get started.
+First, you need to fork the `book-byte` repo. You can do this by clicking the `Fork` button on the top right corner of the repo.
 
 Once forked, you can clone the repo by clicking the `Clone or Download` button on the top right corner of the forked repo.
 
@@ -117,7 +117,7 @@ We all need support and motivation. `BookByte` is not an exception. Please give 
 
 If you found the app helpful, consider supporting us with a coffee.
 
-<a href="https://www.buymeacoffee.com/greenroots">
+<a>
     <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50px">
 </a>
 
